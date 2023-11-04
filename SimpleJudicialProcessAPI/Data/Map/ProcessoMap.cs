@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using SistemaPoc.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SistemaPoc.Models;
-using System.Diagnostics;
 
 namespace SistemaPoc.Data.Map
 {
