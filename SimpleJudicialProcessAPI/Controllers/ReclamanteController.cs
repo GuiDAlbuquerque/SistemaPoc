@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SistemaPoc.Models;
-using SistemaPoc.Repositorys.Interfaces;
+﻿using SistemaPoc.Models;
+using Microsoft.AspNetCore.Mvc;
+using SimpleJudicialProcessAPI.Repositorys.Interfaces;
 
 namespace SistemaPoc.Controllers
 {
@@ -8,46 +8,29 @@ namespace SistemaPoc.Controllers
     [ApiController]
     public class ReclamanteController : Controller
     {
-        private readonly IReclamanteRepository _reclamanteRepository;
-        public ReclamanteController(IReclamanteRepository reclamanteRepository)
-        {
+        private readonly IBaseRepository<Reclamante> _reclamanteRepository;
+
+        public ReclamanteController(IBaseRepository<Reclamante> reclamanteRepository) =>
             _reclamanteRepository = reclamanteRepository;
-        }
 
         [HttpGet]
-        public async Task<ActionResult<List<Reclamante>>> BuscarTodosReclamantes()
-        {
-            var reclamante = await _reclamanteRepository.BuscarTodos();
-            return Ok(reclamante);
-        }
+        public async Task<ActionResult<List<Reclamante>>> BuscarTodosReclamantes() =>
+            Ok(await _reclamanteRepository.BuscarTodos());
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Reclamante>> BuscarUsuarioPorId(int id)
-        {
-            var reclamante = await _reclamanteRepository.BuscarPorId(id);
-            return Ok(reclamante);
-        }
+        public async Task<ActionResult<Reclamante>> BuscarUsuarioPorId(int id) =>
+            Ok(await _reclamanteRepository.BuscarPorId(id));
 
         [HttpPost]
-        public async Task<ActionResult<Reclamante>> Cadastrar([FromBody] Reclamante reclamante)
-        {
-            var reclamanteCadastrado = await _reclamanteRepository.Adicionar(reclamante);
-            return Ok(reclamanteCadastrado);
-        }
+        public async Task<ActionResult<Reclamante>> Cadastrar([FromBody] Reclamante reclamante) =>
+            Ok(await _reclamanteRepository.Adicionar(reclamante));
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Reclamante>> Atualizar([FromBody] Reclamante reclamante, int id)
-        {
-            reclamante.Id = id;
-            var reclamanteAtualizado = await _reclamanteRepository.Atualizar(reclamante, id);
-            return Ok(reclamanteAtualizado);
-        }
+        public async Task<ActionResult<Reclamante>> Atualizar([FromBody] Reclamante reclamante) =>
+            Ok(await _reclamanteRepository.Atualizar(reclamante));
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Advogado>> Deletar(int id)
-        {
-            var deletado = await _reclamanteRepository.Apagar(id);
-            return Ok(deletado);
-        }
+        public async Task<ActionResult<Advogado>> Deletar(int id) =>
+            Ok(await _reclamanteRepository.Apagar(id));
     }
 }

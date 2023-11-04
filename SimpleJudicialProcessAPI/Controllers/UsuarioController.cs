@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using SistemaPoc.Models;
 using Microsoft.AspNetCore.Mvc;
-using SistemaPoc.Models;
-using SistemaPoc.Repositorys.Interfaces;
+using SimpleJudicialProcessAPI.Repositorys.Interfaces;
 
 namespace SistemaPoc.Controllers
 {
@@ -9,46 +8,29 @@ namespace SistemaPoc.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioRepository _usuarioRepository;
-        public UsuarioController(IUsuarioRepository usuarioRepository)
-        {
+        private readonly IBaseRepository<Usuario> _usuarioRepository;
+
+        public UsuarioController(IBaseRepository<Usuario> usuarioRepository) =>
             _usuarioRepository = usuarioRepository;
-        }
 
         [HttpGet]
-        public async Task<ActionResult<List<Usuario>>> BuscarTodosUsuarios() 
-        {
-            var usuarios = await _usuarioRepository.BuscarTodos();
-            return Ok(usuarios);
-        }
+        public async Task<ActionResult<List<Usuario>>> BuscarTodosUsuarios() =>
+            Ok(await _usuarioRepository.BuscarTodos());
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> BuscarUsuarioPorId(int id)
-        {
-            var usuario = await _usuarioRepository.BuscarPorId(id);
-            return Ok(usuario);
-        }
+        public async Task<ActionResult<Usuario>> BuscarUsuarioPorId(int id) =>
+            Ok(await _usuarioRepository.BuscarPorId(id));
 
         [HttpPost]
-        public async Task<ActionResult<Usuario>> Cadastrar([FromBody] Usuario usuario)
-        {
-            var usuarioCadastrado = await _usuarioRepository.Adicionar(usuario);
-            return Ok(usuarioCadastrado);
-        }
+        public async Task<ActionResult<Usuario>> Cadastrar([FromBody] Usuario usuario) =>
+            Ok(await _usuarioRepository.Adicionar(usuario));
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Usuario>> Atualizar([FromBody] Usuario usuario, int id)
-        {
-            usuario.Id= id;
-            var usuarioAtualizado = await _usuarioRepository.Atualizar(usuario, id);
-            return Ok(usuarioAtualizado);
-        }
+        public async Task<ActionResult<Usuario>> Atualizar([FromBody] Usuario usuario) =>
+            Ok(await _usuarioRepository.Atualizar(usuario));
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Usuario>> Deletar(int id)
-        {
-            var deletado = await _usuarioRepository.Apagar(id);
-            return Ok(deletado);
-        }
+        public async Task<ActionResult<Usuario>> Deletar(int id) =>
+            Ok(await _usuarioRepository.Apagar(id));
     }
 }
