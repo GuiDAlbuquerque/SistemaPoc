@@ -1,16 +1,20 @@
-﻿namespace SistemaPoc.Models
+﻿using SimpleJudicialProcessAPI.Models;
+
+namespace SistemaPoc.Models
 {
-    public class Reclamante
+    public class Reclamante: PessoaModel<Reclamante>
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
+        public Reclamante()
+        {
+            CPF = string.Empty;
+        }
+
         public string CPF { get; set; }
 
-        public void AtualizarReclamante(Reclamante reclamante) 
+        public override void Atualizar(Reclamante reclamante) 
         {
             Nome = reclamante.Nome;
             CPF = reclamante.CPF;
         }
-
     }
 }

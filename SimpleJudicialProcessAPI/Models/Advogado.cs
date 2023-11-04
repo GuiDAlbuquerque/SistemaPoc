@@ -1,12 +1,17 @@
-﻿namespace SistemaPoc.Models
+﻿using SimpleJudicialProcessAPI.Models;
+
+namespace SistemaPoc.Models
 {
-    public class Advogado
+    public class Advogado: PessoaModel<Advogado>
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
+        public Advogado()
+        {
+            OAB = string.Empty;
+        }
+
         public string OAB { get; set; }
 
-        public void AtualizarAdvogado(Advogado advogado) 
+        public override void Atualizar(Advogado advogado)
         {
             Nome = advogado.Nome;
             OAB = advogado.OAB;

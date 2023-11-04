@@ -1,12 +1,17 @@
-﻿namespace SistemaPoc.Models
+﻿using SimpleJudicialProcessAPI.Models;
+
+namespace SistemaPoc.Models
 {
-    public class Usuario
+    public class Usuario: PessoaModel<Usuario>
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
+        public Usuario()
+        {
+            Email = string.Empty;
+        }
+
         public string Email { get; set; }
 
-        public void AtualizarUsuario(Usuario usuarioAtualizado) 
+        public override void Atualizar(Usuario usuarioAtualizado) 
         { 
             Nome = usuarioAtualizado.Nome;
             Email = usuarioAtualizado.Email;
