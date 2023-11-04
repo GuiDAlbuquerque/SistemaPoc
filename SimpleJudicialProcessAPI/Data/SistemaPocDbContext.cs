@@ -1,16 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using SistemaPoc.Models;
 using SistemaPoc.Data.Map;
-using SistemaPoc.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SistemaPoc.Data
 {
     public class SistemaPocDbContext : DbContext
     {
-        public SistemaPocDbContext(DbContextOptions<SistemaPocDbContext> options) 
-            : base(options) 
-        { 
+        public SistemaPocDbContext(DbContextOptions<SistemaPocDbContext> options): base(options) { }
 
-        }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Processo> Processo { get; set; }
         public DbSet<Advogado> Advogado { get; set; }
