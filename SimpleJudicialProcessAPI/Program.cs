@@ -1,7 +1,8 @@
-using Microsoft.EntityFrameworkCore;
 using SistemaPoc.Data;
-using SistemaPoc.Repositorys;
-using SistemaPoc.Repositorys.Interfaces;
+using SistemaPoc.Models;
+using Microsoft.EntityFrameworkCore;
+using SimpleJudicialProcessAPI.Repositorys;
+using SimpleJudicialProcessAPI.Repositorys.Interfaces;
 
 namespace SistemaPoc
 {
@@ -21,11 +22,12 @@ namespace SistemaPoc
                 .AddDbContext<SistemaPocDbContext>(
                     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase"))
                 );
-            builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            builder.Services.AddScoped<IProcessoRepository, ProcessoRepository>();
-            builder.Services.AddScoped<IAdvogadoRepository, AdvogadoRepository>();
-            builder.Services.AddScoped<IReclamanteRepository, ReclamanteRepository>();
-            builder.Services.AddScoped<IReclamadaRepository, ReclamadaRepository>();
+            builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            builder.Services.AddScoped<IBaseRepository<Advogado>, BaseRepository<Advogado>>();
+            builder.Services.AddScoped<IBaseRepository<Processo>, BaseRepository<Processo>>();
+            builder.Services.AddScoped<IBaseRepository<Reclamada>, BaseRepository<Reclamada>>();
+            builder.Services.AddScoped<IBaseRepository<Reclamante>, BaseRepository<Reclamante>>();
+            builder.Services.AddScoped<IBaseRepository<Usuario>, BaseRepository<Usuario>>();
 
             var app = builder.Build();
 
